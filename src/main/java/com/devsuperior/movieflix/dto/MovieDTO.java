@@ -46,7 +46,7 @@ public class MovieDTO implements Serializable {
         genre_code = entity.getGenre().getId();
 
     }
-    public MovieDTO(Movie entity, Set<Review> reviews){
+    public MovieDTO(Movie entity, List<Review> reviews){
         this(entity);
         reviews.forEach( x -> this.reviews.add(new ReviewDTO(x)));
 

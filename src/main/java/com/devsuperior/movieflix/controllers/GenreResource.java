@@ -1,6 +1,7 @@
 package com.devsuperior.movieflix.controllers;
 
 import com.devsuperior.movieflix.dto.GenreDTO;
+import com.devsuperior.movieflix.dto.GenreTestDTO;
 import com.devsuperior.movieflix.services.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,11 +20,16 @@ public class GenreResource {
     @Autowired
     private GenreService genreService;
 
-    @GetMapping
-    public ResponseEntity<Page<GenreDTO>> findAll(Pageable pageable){
+    @GetMapping(value = "/old")
+    public ResponseEntity<Page<GenreDTO>> findAllOld(Pageable pageable){
         Page<GenreDTO> dto = genreService.findAll(pageable);
         return ResponseEntity.ok().body(dto);
 
+    }
+    @GetMapping
+    public ResponseEntity<Page<GenreTestDTO>> findAll(Pageable pageable){
+        Page<GenreTestDTO> dto = genreService.findAllTest(pageable);
+        return ResponseEntity.ok().body(dto);
     }
 
 

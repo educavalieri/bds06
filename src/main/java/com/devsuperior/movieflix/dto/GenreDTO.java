@@ -14,7 +14,6 @@ public class GenreDTO {
     List<MovieDTO> movies = new ArrayList<>();
 
     public GenreDTO(){
-
     }
 
     public GenreDTO(Long id, String name, List<MovieDTO> movies) {
@@ -27,6 +26,7 @@ public class GenreDTO {
         id = entity.getId();
         name = entity.getName();
     }
+
 
     public GenreDTO(Genre entity, List<Movie> movies ){
         this(entity);

@@ -2,6 +2,7 @@ package com.devsuperior.movieflix.services;
 
 
 import com.devsuperior.movieflix.dto.MovieDTO;
+import com.devsuperior.movieflix.dto.MovieTestDTO;
 import com.devsuperior.movieflix.dto.ReviewDTO;
 import com.devsuperior.movieflix.entities.Genre;
 import com.devsuperior.movieflix.entities.Movie;
@@ -11,12 +12,15 @@ import com.devsuperior.movieflix.repositories.GenreRepository;
 import com.devsuperior.movieflix.repositories.MovieRepository;
 import com.devsuperior.movieflix.repositories.ReviewRepository;
 import com.devsuperior.movieflix.repositories.UserRepository;
+import com.devsuperior.movieflix.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.GeneratedValue;
 import java.util.Optional;
 
 @Service
@@ -69,6 +73,15 @@ public class MovieService {
         return dto;
 
     }
+
+    @Transactional
+    public MovieTestDTO findByIdTest(Long id){
+        Movie entity = movieRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("Id not exists"));
+        MovieTestDTO dto = new MovieTestDTO(entity);
+        return dto;
+
+    }
+
 
 
 }

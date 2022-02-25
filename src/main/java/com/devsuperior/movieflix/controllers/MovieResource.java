@@ -1,16 +1,14 @@
 package com.devsuperior.movieflix.controllers;
 
 import com.devsuperior.movieflix.dto.MovieDTO;
+import com.devsuperior.movieflix.dto.MovieTestDTO;
 import com.devsuperior.movieflix.dto.ReviewDTO;
-import com.devsuperior.movieflix.entities.Movie;
 import com.devsuperior.movieflix.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.Access;
 
 @RestController
 @RequestMapping(value = "/movies")
@@ -26,8 +24,8 @@ public class MovieResource {
         return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<MovieDTO> findById(@PathVariable("id") Long id){
+    @GetMapping(value = "/old/{id}")
+    public ResponseEntity<MovieDTO> findByIdOld(@PathVariable("id") Long id){
         MovieDTO dto = movieService.findById(id);
         return ResponseEntity.ok().body(dto);
 
@@ -49,5 +47,16 @@ public class MovieResource {
         return ResponseEntity.ok().body(dto);
     }
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<MovieTestDTO> findByIdTest(@PathVariable("id") Long id){
+        MovieTestDTO dto = movieService.findByIdTest(id);
+        if (dto == null){
+            return ResponseEntity.noContent().build();
+        }
+        else {
+            return ResponseEntity.ok().body(dto);
+        }
+
+    }
 
 }

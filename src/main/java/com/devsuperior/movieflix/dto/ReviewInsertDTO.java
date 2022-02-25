@@ -2,8 +2,13 @@ package com.devsuperior.movieflix.dto;
 
 import com.devsuperior.movieflix.entities.Review;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
 public class ReviewInsertDTO {
 
+    @NotBlank
+    @NotEmpty
     private String text;
     private Long movieId;
 

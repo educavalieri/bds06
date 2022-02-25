@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.Access;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/genres")
@@ -20,15 +21,9 @@ public class GenreResource {
     @Autowired
     private GenreService genreService;
 
-    @GetMapping(value = "/old")
-    public ResponseEntity<Page<GenreDTO>> findAllOld(Pageable pageable){
-        Page<GenreDTO> dto = genreService.findAll(pageable);
-        return ResponseEntity.ok().body(dto);
-
-    }
     @GetMapping
-    public ResponseEntity<Page<GenreTestDTO>> findAll(Pageable pageable){
-        Page<GenreTestDTO> dto = genreService.findAllTest(pageable);
+    public ResponseEntity<List<GenreDTO>> findAll(){
+        List<GenreDTO> dto = genreService.findAll();
         return ResponseEntity.ok().body(dto);
     }
 

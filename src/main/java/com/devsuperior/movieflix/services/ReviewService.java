@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ReviewService {
 
@@ -31,9 +34,9 @@ public class ReviewService {
     private AuthService authService;
 
     @Transactional
-    public Page<ReviewDTO> findAll(Pageable pageable){
-        Page<Review> entity = reviewRepository.findAll(pageable);
-        Page<ReviewDTO> dto = entity.map(x -> new ReviewDTO(x));
+    public List<ReviewDTO> findAll(){
+        List<Review> entity = reviewRepository.findAll();
+        List<ReviewDTO> dto = entity.stream().map(x -> new ReviewDTO(x)).collect(Collectors.toList());
         return dto;
 
     }
@@ -52,6 +55,7 @@ public class ReviewService {
         User user = authService.Authenticated();
         User userEntity = userRepository.findByEmail(user.getUsername());
         Movie movie = movieRepository.getOne(movieId);
+        entity.setId(entity.getId());
         entity.setUser(userEntity);
         entity.setMovie(movie);
         entity.setText(text);

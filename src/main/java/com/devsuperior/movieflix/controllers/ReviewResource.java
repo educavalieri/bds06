@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/reviews")
@@ -21,8 +23,8 @@ public class ReviewResource {
     private ReviewService reviewService;
 
     @GetMapping
-    public ResponseEntity<Page<ReviewDTO>> findAll(Pageable pageable){
-        Page<ReviewDTO> dto = reviewService.findAll(pageable);
+    public ResponseEntity<List<ReviewDTO>> findAll(){
+        List<ReviewDTO> dto = reviewService.findAll();
         return ResponseEntity.ok().body(dto);
     }
 
@@ -33,7 +35,7 @@ public class ReviewResource {
     }
 
     @PostMapping
-    public ResponseEntity<ReviewDTO> insertReview(@RequestBody ReviewInsertDTO dto){
+    public ResponseEntity<ReviewDTO> insertReview(@Valid @RequestBody ReviewInsertDTO dto){
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
                 .path("/{id}")

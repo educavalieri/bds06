@@ -3,6 +3,7 @@ package com.devsuperior.movieflix.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -25,6 +26,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private static final String[] VISITOR = { "/users/profile/**"};
 
+    private static final String[] MEMBER = { "/reviews/**"};
+
+
+
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -41,6 +46,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers(PUBLIC).permitAll()
+                .antMatchers(HttpMethod.POST, MEMBER).hasAnyRole("MEMBER")
                 .anyRequest().authenticated();
     }
 }

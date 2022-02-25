@@ -23,10 +23,9 @@ public class GenreService {
     private GenreRepository genreRepository;
 
     @Transactional
-    public Page<GenreDTO> findAll(Pageable pageable){
-        Page<Genre> entity = genreRepository.findAll(pageable);
-
-        Page<GenreDTO> dto = entity.map(x -> new GenreDTO(x, x.getMovies()));
+    public List<GenreDTO> findAll(){
+        List<Genre> entity = genreRepository.findAll();
+        List<GenreDTO> dto = entity.stream().map(x -> new GenreDTO(x, x.getMovies())).collect(Collectors.toList());
         List<Movie> movies = new ArrayList<>();
         return dto;
     }

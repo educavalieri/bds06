@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 public class GenreTests {
 
 	@Test
-	@Disabled
 	public void genreShouldHaveCorrectStructure() {
 	
 		Genre entity = new Genre();
